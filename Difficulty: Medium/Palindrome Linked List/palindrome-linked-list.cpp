@@ -54,7 +54,7 @@ class Solution {
             prev=curr;
             curr=Nextnode;
         }
-        //compair the 1st half with 2nd half
+        //compaire the 1st half with 2nd half
         Node *first=head, *second=prev;
         while(second){
             if(first->data!=second->data) return false;
