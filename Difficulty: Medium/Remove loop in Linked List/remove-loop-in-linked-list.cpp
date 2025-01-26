@@ -85,28 +85,24 @@ class Solution {
   public:
     // Function to remove a loop in the linked list.
     void removeLoop(Node* head) {
-        // code here
-        // just remove the loop without losing any nodes
-        if(head==NULL) return ;
-        Node *slow=head, *fast=head, *prev=NULL, *ptr=head;
-        while(fast!=NULL && fast->next!=NULL){
-            fast=fast->next->next;
-            prev=slow;
+        // Code with Radheshyam (.^.)
+        Node *slow=head;
+        Node *fast=head;
+        while(fast && fast->next){
             slow=slow->next;
-            
-            if (slow==fast){
-              
-                while(ptr!=slow){
-                    ptr=ptr->next;
-                    prev=slow;
-                slow=slow->next;
-                
-                }
-                prev->next=NULL;
-                return ;
-            }
+            fast=fast->next->next;
+            if(slow==fast) break;
         }
-        
+        if(!fast || !fast->next) return;
+        slow=head;
+        while(slow!=fast){
+            slow=slow->next;
+            fast=fast->next;
+        }
+        while(fast->next!=slow){
+            fast=fast->next;
+        }
+        fast->next=NULL;
     }
 };
 
@@ -156,6 +152,7 @@ int main() {
             cout << "false\n";
         else
             cout << "true\n";
+        cout << "~" << endl;
     }
     return 0;
 }
