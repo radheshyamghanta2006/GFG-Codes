@@ -4,21 +4,22 @@ using namespace std;
 
 
 // } Driver Code Ends
-// User function template for C++
+
 class Solution {
   public:
-    int missingNumber(vector<int>& arr) {
-        // code here
-        int arrsum=0;
+    int missingNum(vector<int>& arr) {
+        // Code with Radheshyam (.^.)
         int n=arr.size()+1;
-        for (int i=0;i<n-1;i++){
-            arrsum=arrsum+arr[i];
-        }
-        int actualsum = n * (n + 1) / 2;
-       int ans=actualsum-arrsum;
-        return ans;
+        int sum=0;
+        int arrsum=0;
+        for(int i=1;i<=n;i++)sum+=i;
+        
+        for(int i=0;i<arr.size();i++) arrsum+=arr[i];
+        
+        return sum-arrsum;
     }
 };
+
 
 //{ Driver Code Starts.
 
@@ -39,7 +40,7 @@ int main() {
             a.push_back(num);
 
         Solution obj;
-        cout << obj.missingNumber(a) << endl;
+        cout << obj.missingNum(a) << endl;
         cout << "~\n";
     }
 
