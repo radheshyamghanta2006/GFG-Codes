@@ -7,15 +7,44 @@ using namespace std;
 
 class Solution {
   public:
+  
+  int fun(int x,int A,int B,int C){
+      return A*x*x + B*x + C;
+  }
     vector<int> sortArray(vector<int> &arr, int A, int B, int C) {
-        //  Code with Radheshyam (.^.)
-        vector<int> res;
-        for(int &x: arr){
-            int ans = A*x*x + B*x + C;
-            res.push_back(ans);
+        //Code with Radheshyam (.^.)
+        int n = arr.size();
+        vector<int> result(n);
+        
+        int l = 0, r = n - 1;
+        
+        int idx = (A >= 0) ? (n-1) : 0;
+        
+        while (l <= r){
+            int leftval = fun(arr[l],A,B,C);
+            int rightval = fun(arr[r],A,B,C);
+            
+            if(A >=0 ){
+                if(leftval > rightval){
+                    result[idx--] = leftval;
+                    l++;
+                }else{
+                     result[idx--] = rightval;
+                    r--;
+                }
+            } else{
+                if(leftval < rightval){
+                    result[idx++] = leftval;
+                    l++;
+                }
+                else{
+                     result[idx++] = rightval;
+                    r--;
+                }
+            }
         }
-        sort(res.begin(),res.end());
-        return res;
+        return result;
+        
     }
 };
 
