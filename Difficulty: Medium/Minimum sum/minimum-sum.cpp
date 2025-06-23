@@ -1,64 +1,44 @@
-//{ Driver Code Starts
-#include <bits/stdc++.h>
-using namespace std;
-
-
-// } Driver Code Ends
-// User function template for C++
-
 class Solution {
   public:
+   string addString(string &s1,string &s2){
+       int i=s1.length() - 1;
+       int j=s2.length() - 1;
+       int c = 0;
+       string result = "";
+       while(i>=0 || j>=0 || c>0){
+           int sum = c;
+           if(i>=0){
+               sum += (s1[i] - '0');
+           }
+           if(j>=0){
+               sum += (s2[j] - '0');
+           }
+           result.push_back((sum % 10) + '0');
+           c = sum / 10;
+           i--;
+           j--;
+       }
+       
+       while(!result.empty() && result.back()=='0'){
+           result.pop_back();
+       }
+       reverse(result.begin(),result.end());
+       return result;
+   }
+  
     string minSum(vector<int> &arr) {
-         // Code with Radheshyam (.^.)
-        string n1,n2;
-        sort(arr.begin(),arr.end());
-        for(int i=0;i<arr.size();i++){
-            if(i%2==0) n1+=to_string(arr[i]);
-            else n2+=to_string(arr[i]);
+        // Code with Radheshyam (.^.)
+        
+        sort(arr.begin(), arr.end()); 
+        string s1 = "";
+        string s2 = "";
+        
+        for(int i=0;i < arr.size();i++){
+            if(i%2==0){ 
+            s1 += to_string(arr[i]);
+            }
+            else s2 += to_string(arr[i]);
         }
-        reverse(n1.begin(),n1.end());
-        reverse(n2.begin(),n2.end());
-        string ans;
-        int i=0,j=0;
-        int carry=0;
-        while(i<n1.size() || j<n2.size()){
-            int sum=0;
-            if(i<n1.size())sum+=n1[i++]-'0';
-            if(j<n2.size())sum+=n2[j++]-'0';
-            sum+=carry;
-            carry=sum/10;
-            sum%=10;
-            ans+=to_string(sum);
-        }
-        ans+=to_string(carry);
-        while(ans.back()=='0')ans.pop_back();
-        reverse(ans.begin(),ans.end());
-        return ans;
+        return addString(s1,s2);
     }
 };
-
-//{ Driver Code Starts.
-
-int main() {
-    int t;
-    cin >> t;
-    cin.ignore();
-    while (t--) {
-        vector<int> a;
-        string input;
-        getline(cin, input);
-        stringstream ss(input);
-        int number;
-        while (ss >> number) {
-            a.push_back(number);
-        }
-
-        Solution ob;
-        string ans = ob.minSum(a);
-        cout << ans << endl;
-        cout << "~" << endl;
-    }
-    return 0;
-}
-
-// } Driver Code Ends
