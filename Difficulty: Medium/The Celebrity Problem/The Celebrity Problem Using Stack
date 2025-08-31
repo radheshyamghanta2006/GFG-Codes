@@ -1,0 +1,49 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+#include <vector>
+#include <stack>
+using namespace std;
+int work(vector<vector<int>>mat){
+    int n=mat.size();
+    stack<int>st;
+    for(int i=n-1;i>=0;i--) st.push(i);
+    
+    int first,second;
+    while(st.size()>1){
+        first=st.top();
+        st.pop();
+        second=st.top();
+        st.pop();
+        
+        if(mat[first][second]==1 && mat[second][first]==0) 
+        st.push(second);
+        else if(mat[first][second]==0 && mat[second][first]==1) 
+        st.push(first);
+    }
+    if(st.empty()) return -1;
+    else return st.top();
+}
+
+int fun(vector<vector<int>>mat){
+    int n=mat.size();
+    
+    int c=work(mat);
+    if(c==-1) return -1;
+    for(int i=0;i<n;i++){
+        if((c!=i) && (mat[i][c]==0 || mat[c][i]==1)) break;
+        if(i==n-1) return c;
+    }
+    return -1;
+}
+
+int main() {
+vector<vector<int>>mat={{0,1,1,1},
+                        {0,1,0,1},
+                        {0,1,0,1},
+                        {0,0,0,1}
+                                };
+                                    
+    cout<<fun(mat);
+
+    return 0;
+}
