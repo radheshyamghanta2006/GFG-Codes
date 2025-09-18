@@ -1,6 +1,6 @@
 class Solution {
   public:
-    vector<int> nextLargerElement(vector<int> &arr) {
+    vector<int> nextGreater(vector<int> &arr) {
         // Code with Radheshyam (.^.)
         int n = arr.size();
         vector<int>result(n,-1);
@@ -21,5 +21,6 @@ class Solution {
             }
         }
         return result;
+
     }
 };
