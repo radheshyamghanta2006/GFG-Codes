@@ -1,23 +1,21 @@
 class Solution {
   public:
-    vector<int> findGreater(vector<int>& arr) {
+    vector<int> nextFreqGreater(vector<int>& arr) {
         // Code with Radheshyam (.^.)
-        
-        int n = arr.size();
-        vector<int>result(n,-1);
         unordered_map<int,int>freq;
-        for(int x : arr) freq[x]++;
+        for(int i=0;i<arr.size();i++)
+        freq[arr[i]]++;
         
+        vector<int>ans(arr.size(),-1);
         stack<int>st;
         
-        for(int i=0;i<n;i++){
-            
-            while(!st.empty() && freq[arr[i]] > freq[arr[st.top()]]){
-                result[st.top()] = arr[i];
+        for(int i=0;i<arr.size();i++){
+            while(!st.empty() && freq[arr[i]]>freq[arr[st.top()]]){
+                ans[st.top()]=arr[i];
                 st.pop();
             }
             st.push(i);
         }
-        return result;
+        return ans;
     }
 };
