@@ -1,62 +1,52 @@
-//{ Driver Code Starts
-#include <bits/stdc++.h>
-using namespace std;
-
-
-// } Driver Code Ends
 class Solution {
   public:
-  bool solve(vector<vector<char>>& mat,string &word,int i,int j,int idx,vector<vector<bool>>&vis){
-      //base case
-      if(idx==word.length()) return true;
-      if(i<0 || j<0 || i>=mat.size() || j>=mat[0].size() || vis[i][j] || mat[i][j]!=word[idx]) return false;
-      //recursive case
-      vis[i][j]=true;
-      if(solve(mat,word,i-1,j,idx+1,vis) || solve(mat,word,i+1,j,idx+1,vis) || solve(mat,word,i,j-1,idx+1,vis) || solve(mat,word,i,j+1,idx+1,vis)){
-          return true;
-      }
-      vis[i][j]=false;
-      return false;
-  }
-    bool isWordExist(vector<vector<char>>& mat, string& word) {
+    bool solve(int i,int j,int idx,vector<vector<char>>&mat,string &word,vector<int>&da,vector<int>&db)
+    {
+        if(idx==word.size())
+        {
+            return true;
+        }
+        if(i<0 || i>=mat.size() || j<0 || j>=mat[0].size() || mat[i][j]!=word[idx])
+        {
+            return false;   
+        }
+        char ch=mat[i][j];
+        mat[i][j]='#';
+        for(int d=0;d<4;d++)
+        {
+            int ni=i+da[d];
+            int nj=j+db[d];
+            if(solve(ni,nj,idx+1,mat,word,da,db))
+            {
+                return true;
+            }
+        }
+        mat[i][j]=ch;
+        return false;
+    }
+  
+    bool isWordExist(vector<vector<char>> &mat, string &word) {
         // Code with Radheshyam (.^.)
         int n=mat.size();
         int m=mat[0].size();
-        vector<vector<bool>>vis(n,vector<bool>(m,false));
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(mat[i][j]==word[0]){
-                    if(solve(mat, word, i, j, 0, vis)) return true;
+        
+        vector<int>da{0,0,-1,1};
+        vector<int>db{-1,1,0,0};
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(mat[i][j]==word[0])
+                {
+                    bool flag=solve(i,j,0,mat,word,da,db);
+                    if(flag)
+                    {
+                        return true;
+                    }
                 }
             }
         }
-        return false;
+        return false;   
     }
 };
-
-//{ Driver Code Starts.
-int main() {
-    int tc;
-    cin >> tc;
-    while (tc--) {
-        int n, m;
-        cin >> n >> m;
-        vector<vector<char>> mat(n, vector<char>(m, '*'));
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < m; j++)
-                cin >> mat[i][j];
-        string word;
-        cin >> word;
-        Solution obj;
-        bool ans = obj.isWordExist(mat, word);
-        if (ans)
-            cout << "true\n";
-        else
-            cout << "false\n";
-
-        cout << "~"
-             << "\n";
-    }
-    return 0;
-}
-// } Driver Code Ends
