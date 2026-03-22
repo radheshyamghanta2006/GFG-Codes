@@ -1,13 +1,7 @@
-//{ Driver Code Starts
-#include <bits/stdc++.h>
-using namespace std;
-
-
-// } Driver Code Ends
 
 class Solution {
   public:
-    int orangesRotting(vector<vector<int>>& mat) {
+    int orangesRot(vector<vector<int>>& mat) {
         // Code with Radheshyam (.^.)
         int n=mat.size(), m=mat[0].size(), ans=0, count=0;
         vector<vector<int>>vis(n, vector<int>(m,0));
@@ -49,27 +43,3 @@ class Solution {
     }
 };
 
-
-//{ Driver Code Starts.
-int main() {
-    int tc;
-    cin >> tc;
-    while (tc--) {
-        int n, m;
-        cin >> n >> m;
-        vector<vector<int>> mat(n, vector<int>(m, -1));
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                cin >> mat[i][j];
-            }
-        }
-        Solution obj;
-        int ans = obj.orangesRotting(mat);
-        cout << ans << "\n";
-
-        cout << "~"
-             << "\n";
-    }
-    return 0;
-}
-// } Driver Code Ends
