@@ -1,7 +1,7 @@
 class Solution {
   public:
     int getLastDigit(string& a, string& b) {
-        // code here
+        // Code with Radheshyam (.^.)
         if (b == "0") 
         {
             return 1;
